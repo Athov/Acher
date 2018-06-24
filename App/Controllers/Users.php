@@ -46,11 +46,14 @@ class Users extends Controller
         $this->view->forge('users/create', $data);
     }
    
-    public function edit($id)
+    public function edit(int $id) // gives error on PHP 5 works on PHP 7
     {
         $data['title'] = 'Edit User #'. $id;
         $data['user'] = $this->user->findId($id);
-        
+        if(empty($data['user']))
+        {
+            header('Location: /users');
+        }
         if($this->input->method() === 'POST')
         {
             $data['error'][] = 'TODO';
