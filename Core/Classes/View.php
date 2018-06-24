@@ -15,10 +15,13 @@ class View
 
     public function forge($view = null, $data = array())
     {
-        return $this->setFile(self::getThemeFile(), 'theme')
-                    ->setFile($view, 'view')
-                    ->setData($data)
-                    ->render();
+        if( ! empty(self::getThemeFile()))
+        {
+            $this->setFile(self::getThemeFile(), 'theme');
+        }
+        $this->setFile($view, 'view');
+        $this->setData($data);
+        return $this->render();
     }
     
     public static function setFolder($path)
