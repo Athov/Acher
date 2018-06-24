@@ -1,9 +1,7 @@
 <?php
-namespace Core\Classes\DB;
+namespace Core\Classes;
 
-use Core\Classes\Config as Config;
-
-class PDODriver extends \PDO 
+class Database extends \PDO 
 {
     public function __construct()
     {

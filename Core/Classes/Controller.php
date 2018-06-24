@@ -5,7 +5,6 @@ use Core\Classes\DB\PDODriver;
 
 class Controller 
 {
-    protected $db = NULL;
     protected $input = null;
     protected $validation = null;
     protected $view = null;
