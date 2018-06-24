@@ -9,8 +9,6 @@ $loader->register();
 $loader->addNamespace('Core', ROOT . DS . 'core' . DS);
 $loader->addNamespace('App', ROOT . DS . 'app' . DS);
 
-\set_exception_handler(array('Core\\Classes\\ErrorHandling', 'handler'));
-
 \Core\Classes\Config::setFolder(ROOT . DS . 'app' . DS . 'config' . DS);
 
 \Core\Classes\Lang::setFolder(ROOT . DS . 'app' . DS . 'lang' . DS);
@@ -22,6 +20,9 @@ $config = \Core\Classes\Config::get('general');
 \Core\Classes\View::setThemeFile($config['theme_file']);
 
 \Core\Classes\View::setFolder($config['views_folder']);
+
+set_error_handler(array('Core\\Classes\\ErrorHandling', 'errorHandler'));
+set_exception_handler(array('Core\\Classes\\ErrorHandling', 'exceptionHandler'));
 
 $request = \Core\Classes\Request::getInstance();
 
