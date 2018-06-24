@@ -74,19 +74,15 @@ class Request {
         { 
             throw new \Exception(Lang::get('general.class_not_found', $this->controller), 404); 
         }
-
-        // Instance of the controller
-        $controller = $this->controller;
-        $this->current = new $controller();
         
         // Check to see if the action exist
-        if( ! method_exists($this->current, $this->action))
+        if( ! method_exists($this->controller, $this->action))
         {
             throw new \Exception(Lang::get('general.undefined_method', array($this->controller, $this->action)), 1);
         }
 
-        // Call the controller action with params
-        call_user_func_array(array($this->current, $this->action), $this->params);
+        // Call controller->action(params)
+        call_user_func_array(array(new $this->controller, $this->action), $this->params);
 
         return $this;
     }

@@ -1,7 +1,7 @@
 <?php
 namespace Core\Classes;
 
-use Core\Classes\DB\PDODriver as PDODriver;
+use Core\Classes\DB\PDODriver;
 
 class Model
 {
@@ -15,6 +15,5 @@ class Model
 
         $this->db = ($config['autoload']['database']) ? new PDODriver() : null;
         $this->input = ($config['autoload']['input']) ? Input::getInstance() : null;
-        $this->validation = ($config['autoload']['validation']) ? Validation::getInstance() : null;
     }
 }

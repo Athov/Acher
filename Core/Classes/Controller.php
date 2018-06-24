@@ -1,8 +1,7 @@
 <?php
 namespace Core\Classes;
 
-use Core\Classes\DB\PDODriver as PDODriver;
-use Core\Classes\View as View;
+use Core\Classes\DB\PDODriver;
 
 class Controller 
 {
@@ -14,7 +13,6 @@ class Controller
     public function __construct()
     {
         $config = Config::get('general');
-        $this->db = ($config['autoload']['database']) ? new PDODriver() : null;
         $this->input = ($config['autoload']['input']) ? Input::getInstance() : null;
         $this->validation = ($config['autoload']['validation']) ? Validation::getInstance() : null;
         $this->view = new View();
