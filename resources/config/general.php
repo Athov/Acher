@@ -8,7 +8,7 @@ return array(
     // The main theme file: views/layout.php
     'theme_file' => 'template',
     // Application folders
-    'views_folder' => ROOT . DS . 'App' . DS . 'Views' . DS,
+    'views_folder' => ROOT . DS . 'resources' . DS . 'views' . DS,
     //
     'autoload' => array(
         'database' => true,
