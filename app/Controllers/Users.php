@@ -3,10 +3,6 @@
 namespace App\Controllers;
 
 use Core\Classes\Controller as Controller;
-use Core\Classes\View as View;
-use Core\Classes\Lang as Lang;
-use Core\Classes\Input as Input;
-
 use App\Models\User as User;
 
 class Users extends Controller
