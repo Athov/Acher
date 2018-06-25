@@ -1,8 +1,8 @@
 <?php
 
-require ROOT . DS . 'core' . DS . 'Classes' . DS . 'autoloader.php';
+require ROOT . DS . 'core' . DS . 'Autoloader.php';
 
-$loader = new \Core\Classes\Autoloader();
+$loader = new \Core\Autoloader();
 
 $loader->register();
 

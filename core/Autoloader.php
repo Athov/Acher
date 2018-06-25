@@ -1,5 +1,5 @@
 <?php
-namespace Core\Classes;
+namespace Core;
 
 /**
  * An example of a general-purpose implementation that includes the optional
