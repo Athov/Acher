@@ -2,42 +2,44 @@
 
 require ROOT . DS . 'core' . DS . 'Autoloader.php';
 
-$loader = new \Core\Autoloader();
+use Core\Autoloader;
+use Core\Classes\Lang;
+use Core\Classes\View;
+use Core\Classes\Config;
+use Core\Classes\Request;
+
+$loader = new Autoloader();
 
 $loader->register();
 
 $loader->addNamespace('Core', ROOT . DS . 'core' . DS);
 $loader->addNamespace('App', ROOT . DS . 'app' . DS);
 
-\Core\Classes\Config::setFolder(ROOT . DS . 'resources' . DS . 'config' . DS);
+Config::setFolder(ROOT . DS . 'resources' . DS . 'config' . DS);
 
-\Core\Classes\Lang::setFolder(ROOT . DS . 'resources' . DS . 'lang' . DS);
+Lang::setFolder(ROOT . DS . 'resources' . DS . 'lang' . DS);
 
-$config = \Core\Classes\Config::get('general');
+$config = Config::get('general');
 
-\Core\Classes\Lang::setLanguage($config['language']);
+Lang::setLanguage($config['language']);
 
-\Core\Classes\View::setThemeFile($config['theme_file']);
+View::setThemeFile($config['theme_file']);
 
-\Core\Classes\View::setFolder($config['views_folder']);
+View::setFolder($config['views_folder']);
 
 set_error_handler(array('Core\\Classes\\ErrorHandling', 'errorHandler'));
 set_exception_handler(array('Core\\Classes\\ErrorHandling', 'exceptionHandler'));
 
-$request = \Core\Classes\Request::getInstance();
+$request = Request::getInstance();
 
-$request->setConfig(array(
-    
-        // Namespace for the controllers
-        'namespace' => 'App\\Controllers\\',
+// Set the controllers namespace
+$request->setNamespace('App\\Controllers\\');
 
-        // The default controller that will load on start
-        'default_controller' => $config['default']['controller'],
-    
-        // The default action that will load on start
-        'default_action' => $config['default']['action']
+// Set the default controller
+$request->setController($config['default']['controller']);
 
-    ));
+// Set the default controller action
+$request->setAction($config['default']['action']);
 
 // process the http request and load the controller
 $request->loader();

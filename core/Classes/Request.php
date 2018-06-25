@@ -5,7 +5,7 @@ class Request {
 
     private static $instance = null;
     private $namespace = null;
-    private $uri_parts = array();
+    private $uri = array();
     private $controller = null;
     private $current = null;
     private $action = null;
@@ -22,14 +22,46 @@ class Request {
         return self::$instance;
     }
     
-    public function setConfig($data = array())
+    public function setNamespace($namespace)
     {
-        $this->namespace = $data['namespace'];
-        $this->controller = $data['default_controller'];
-        $this->action = $data['default_action'];
-        return $this;
+        $this->namespace = $namespace;
     }
     
+    public function getNamespace()
+    {
+        return $this->namespace;
+    }
+
+    public function setController($controller)
+    {
+        $this->controller = $this->getNamespace() . $controller;
+    }
+    
+    public function getController()
+    {
+        return $this->controller;
+    }
+
+    public function setAction($action)
+    {
+        $this->action = $action;
+    }
+    
+    public function getAction()
+    {
+        return $this->action;
+    }
+
+    public function setParams($params)
+    {
+        $this->params = $params;
+    }
+    
+    public function getParams()
+    {
+        return $this->params;
+    }
+
     public function loader()
     {
         $this->explodeUri()->parseUri()->routeRequest();
@@ -48,21 +80,28 @@ class Request {
             throw new \Exception('The requested page is not found.',404);
         }
         
-        $this->uri_parts = $string ? explode('/', trim($string,'/')) : array();
+        $this->uri = $string ? explode('/', trim($string,'/')) : array();
         return $this;
     }
 
     private function parseUri()
     {
-        $page = $this->uri_parts;
+        $uri_element = $this->uri;
 
-        $controller = (empty($page[0])) ? $this->controller : ucfirst($page[0]);
+        if( ! empty($uri_element[0]))
+        {
+            $this->setController(ucfirst($uri_element[0]));
+        }
 
-        $this->controller = $this->namespace . $controller; 
-        
-        $this->action = (isset($page[1])) ? $page[1] : $this->action;
+        if(isset($uri_element[1]))
+        {
+            $this->setAction($uri_element[1]);
+        }
 
-        $this->params = (isset($page[2])) ? array_slice($page, 2) : $this->params;
+        if(isset($uri_element[2]))
+        {
+            $this->setParams(array_slice($uri_element, 2));
+        }
 
         return $this;
     }
