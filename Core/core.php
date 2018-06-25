@@ -1,17 +1,17 @@
 <?php
 
-require ROOT . DS . 'Core' . DS . 'Classes' . DS . 'autoloader.php';
+require ROOT . DS . 'core' . DS . 'autoloader.php';
 
-$loader = new \Core\Classes\Autoloader();
+$loader = new \Core\Autoloader();
 
 $loader->register();
 
-$loader->addNamespace('Core', ROOT . DS . 'Core' . DS);
-$loader->addNamespace('App', ROOT . DS . 'App' . DS);
+$loader->addNamespace('Core', ROOT . DS . 'core' . DS);
+$loader->addNamespace('App', ROOT . DS . 'app' . DS);
 
-\Core\Classes\Config::setFolder(ROOT . DS . 'App' . DS . 'Config' . DS);
+\Core\Classes\Config::setFolder(ROOT . DS . 'resources' . DS . 'config' . DS);
 
-\Core\Classes\Lang::setFolder(ROOT . DS . 'App' . DS . 'Lang' . DS);
+\Core\Classes\Lang::setFolder(ROOT . DS . 'resources' . DS . 'lang' . DS);
 
 $config = \Core\Classes\Config::get('general');
 
