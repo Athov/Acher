@@ -1,6 +1,9 @@
 <?php
 namespace Core\Classes;
 
+use Core\Helpers\Database;
+use Core\Helpers\Input;
+
 class Model
 {
     protected $db = null;

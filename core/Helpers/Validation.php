@@ -1,5 +1,7 @@
 <?php
-namespace Core\Classes;
+namespace Core\Helpers;
+
+use Core\Classes\Lang;
 
 class Validation 
 {
@@ -21,7 +23,7 @@ class Validation
     public function setRules($post, $label, $rules)
     {
         $this->data[$post]['label'] = $label;
-        $this->data[$post]['postdata'] = \Input::data('POST', $post);
+        $this->data[$post]['postdata'] = Input::data('POST', $post);
         $this->data[$post]['rules'] = explode('|', $rules);
         return $this;
     }
@@ -85,7 +87,8 @@ class Validation
     
     private function checkErrors($returned, $data)
     {
-        if($returned == false){
+        if($returned == false)
+        {
             $data[0] = strtolower($data[0]);
             $this->errors[strtolower($data[1])] = Lang::get('validation.' . $data[0], array_merge(array($data[2]), $data[3]));
             return false;

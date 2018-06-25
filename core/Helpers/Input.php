@@ -1,6 +1,8 @@
 <?php
 
-namespace Core\Classes;
+namespace Core\Helpers;
+
+use Core\Classes\Security;
 
 class Input 
 {

@@ -1,5 +1,7 @@
 <?php
-namespace Core\Classes;
+namespace Core\Helpers;
+
+use Core\Classes\Config;
 
 class Database extends \PDO 
 {

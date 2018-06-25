@@ -1,7 +1,8 @@
 <?php
 namespace Core\Classes;
 
-use Core\Classes\DB\PDODriver;
+use Core\Helpers\Validation;
+use Core\Helpers\Input;
 
 class Controller 
 {
