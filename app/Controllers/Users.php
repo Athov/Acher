@@ -2,8 +2,8 @@
 
 namespace App\Controllers;
 
-use Core\Classes\Controller as Controller;
-use App\Models\User as User;
+use App\Extend\Controller as Controller;
+use App\Models\User;
 
 class Users extends Controller
 {
@@ -44,7 +44,6 @@ class Users extends Controller
    
     public function edit(int $id) // gives error on PHP 5 works on PHP 7
     {
-        $data['title'] = 'Edit User #'. $id;
         $data['user'] = $this->user->findId($id);
         if(empty($data['user']))
         {

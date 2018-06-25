@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Extend\Controller as Controller;
 use Core\Classes\Lang;
+use App\Models\Picture;
 
 class Home extends Controller
 {
@@ -16,6 +17,8 @@ class Home extends Controller
     }
     public function index()
     {
-        $this->view->forge('home/index');
+        $picture = new Picture();
+        $data['pictures'] = $picture->getTop12();
+        $this->view->forge('home/index', $data);
     }
 }
