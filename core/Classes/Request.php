@@ -21,11 +21,6 @@ class Request {
         return self::$instance;
     }
 
-    public function loader()
-    {
-        $this->explodeUri()->parseUri();
-    }
-
     private function explodeUri()
     {
         $string = $_SERVER['REQUEST_URI'];
@@ -39,19 +34,18 @@ class Request {
             throw new \Exception('The requested page is not found.',404);
         }
 
-        $this->uri = $string;
-        return $this;
+        return $string;
     }
 
-    private function parseUri()
+    public function loader()
     {
-       $route = $this->router->matchRoutes($this->uri);
-
+        $route = $this->router->matchRoutes($this->explodeUri());
+        
         if( ! $route)
         {
             throw new \Exception('The requested page is not found.',404);
         }
-        
+
         $location = $route['location'];
         $params = $route['params'];
 

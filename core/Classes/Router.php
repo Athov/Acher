@@ -3,17 +3,16 @@ namespace Core\Classes;
 
 class Router
 {
-    const PREG_X = '/({:.+?})/';
-
     private static $instance = null;
     private $routes = array();
 
-    private $patterns = [
+    private $patterns = array(
         ':any'  => '.*',
         ':id'   => '[0-9]+',
+        ':num'   => '[0-9]+',
         ':slug' => '[a-z\-]+',
         ':name' => '[a-zA-Z]+',
-    ];
+    );
 
     private function __construct(){}
     
@@ -45,10 +44,6 @@ class Router
     
     public function addRoute($method, $route, $location)
     {
-        if( preg_match(self::PREG_X, $route))
-        {
-            $route = str_replace(array('{', '}'), '' , $route);
-        }
         $this->routes[$method][$route] = $location;
     }
 
@@ -59,13 +54,17 @@ class Router
         
         if(array_key_exists($method, $routes))
         {
-            $uri_explode = explode('/', trim($uri, '/'));
-
             foreach ($routes[$method] as $route => $location)
             {
-                if($key = strstr($route, ':'))
+                if(preg_match('/({:.+?})/', $route))
                 {
-                    $route = str_replace($key, $this->patterns[$key], $route);
+                    $route = preg_replace_callback('/{(:.+?)}/', function($key)
+                    {
+                        if(array_key_exists($key[1], $this->patterns))
+                        {
+                            return $this->patterns[$key[1]];
+                        }
+                    }, $route);
                 }
 
                 if(!preg_match("#^$route$#", $uri))
@@ -74,8 +73,7 @@ class Router
                 }
 
                 $route_explode = explode('/', $route);
-
-                $params = array_diff(array_replace($route_explode, $uri_explode), $route_explode);
+                $params = array_diff(array_replace($route_explode, explode('/', $uri)), $route_explode);
 
                 return array(
                     'location' => $location,
