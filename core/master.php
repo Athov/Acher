@@ -6,7 +6,7 @@ use Core\Autoloader;
 use Core\Classes\Lang;
 use Core\Classes\View;
 use Core\Classes\Config;
-use Core\Classes\Router;
+use Core\Classes\Request;
 
 $loader = new Autoloader();
 
