@@ -5,7 +5,6 @@ class Router
 {
     private static $instance = null;
     private $routes = array();
-
     private $patterns = array(
         ':any'  => '.*',
         ':id'   => '[0-9]+',
