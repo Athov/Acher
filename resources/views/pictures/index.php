@@ -4,7 +4,7 @@
         <div class="row">
             <?php foreach($pictures as $picture): ?>
             <div class="col-3 mx-auto mb-4">
-                <a href="/pictures/show/<?=$picture['id']?>">
+                <a href="/pictures/<?=$picture['id']?>">
                     <img class="img-fluid" src="http://via.placeholder.com/350x350" alt="<?=$picture['title']?>">
                 </a>
             </div>

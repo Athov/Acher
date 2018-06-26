@@ -1,11 +1,19 @@
 <?php
 namespace Core\Classes;
 
-class Router {
+class Router
+{
+    const PREG_X = '/({:.+?})/';
 
     private static $instance = null;
     private $routes = array();
-    private $params = array();
+
+    private $patterns = [
+        ':any'  => '.*',
+        ':id'   => '[0-9]+',
+        ':slug' => '[a-z\-]+',
+        ':name' => '[a-zA-Z]+',
+    ];
 
     private function __construct(){}
     
@@ -35,39 +43,46 @@ class Router {
                             $_SERVER['REQUEST_METHOD'];
     }
     
-    public function addRoute($method, $route, $call)
+    public function addRoute($method, $route, $location)
     {
-        if( preg_match("/({:.+?})/", $route))
+        if( preg_match(self::PREG_X, $route))
         {
-           $route = preg_replace("/(\/{:.+?})/", '' , $route);
+            $route = str_replace(array('{', '}'), '' , $route);
         }
-        $this->routes[$method][trim($route, '/')] = $call;
+        $this->routes[$method][$route] = $location;
     }
 
     public function matchRoutes($uri)
     {
         $method = $this->getRequestMethod();
         $routes = $this->getRoutes();
+        
         if(array_key_exists($method, $routes))
         {
             $uri_explode = explode('/', trim($uri, '/'));
-            $uri_element = implode('/', array_slice($uri_explode, 0, 2));
 
-            foreach ($routes[$method] as $route => $call)
+            foreach ($routes[$method] as $route => $location)
             {
+                if($key = strstr($route, ':'))
+                {
+                    $route = str_replace($key, $this->patterns[$key], $route);
+                }
 
-                if(!preg_match("#^$route$#", $uri_element))
+                if(!preg_match("#^$route$#", $uri))
                 {
                     continue ;
                 }
-                list($controller, $action) = explode('@', $call);
+
+                $route_explode = explode('/', $route);
+
+                $params = array_diff(array_replace($route_explode, $uri_explode), $route_explode);
 
                 return array(
-                    'controller' => $controller,
-                    'action' => $action,
-                    'params' => array_slice($uri_explode, 2)
+                    'location' => $location,
+                    'params' => $params
                 );
             }
         }
+        return false;
     }
 }

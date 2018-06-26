@@ -4,11 +4,7 @@ namespace Core\Classes;
 class Request {
 
     private static $instance = null;
-    private $namespace = null;
     private $uri = array();
-    private $controller = null;
-    private $action = null;
-    private $params = array();
     private $router = null;
 
     private function __construct()
@@ -24,50 +20,10 @@ class Request {
         }
         return self::$instance;
     }
-    
-    public function setNamespace($namespace)
-    {
-        $this->namespace = $namespace;
-    }
-    
-    public function getNamespace()
-    {
-        return $this->namespace;
-    }
-
-    public function setController($controller)
-    {
-        $this->controller = $this->getNamespace() . $controller;
-    }
-    
-    public function getController()
-    {
-        return $this->controller;
-    }
-
-    public function setAction($action)
-    {
-        $this->action = $action;
-    }
-    
-    public function getAction()
-    {
-        return $this->action;
-    }
-
-    public function setParams($params)
-    {
-        $this->params = $params;
-    }
-    
-    public function getParams()
-    {
-        return $this->params;
-    }
 
     public function loader()
     {
-        $this->explodeUri()->parseUri()->routeRequest();
+        $this->explodeUri()->parseUri();
     }
 
     private function explodeUri()
@@ -89,35 +45,50 @@ class Request {
 
     private function parseUri()
     {
-        $element = $this->router->matchRoutes($this->uri);
+       $route = $this->router->matchRoutes($this->uri);
 
-        if(empty($element['controller']))
+        if( ! $route)
         {
             throw new \Exception('The requested page is not found.',404);
         }
-        $this->setController($element['controller']);
-        $this->setAction($element['action']);
-        $this->setParams($element['params']);
+        
+        $location = $route['location'];
+        $params = $route['params'];
+
+        if(is_string($location) && strpos($location, '@'))
+        {
+            $this->requestClass($location, $params);
+        }
+        elseif(empty($params))
+        {
+            return $location(); 
+        }
+        else
+        {
+            call_user_func_array($location, $params);
+        }
 
         return $this;
     }
 
-    private function routeRequest()
+    private function requestClass($location, $params)
     {
+        list($controller, $action) = explode('@', $location);
+
         // Check to see if the controller class exists
-        if( ! class_exists($this->controller))
+        if( ! class_exists($controller))
         { 
-            throw new \Exception(Lang::get('general.class_not_found', $this->controller), 404); 
+            throw new \Exception(Lang::get('general.class_not_found', $controller), 404); 
         }
         
         // Check to see if the action exist
-        if( ! method_exists($this->controller, $this->action))
+        if( ! method_exists($controller, $action))
         {
-            throw new \Exception(Lang::get('general.undefined_method', array($this->controller, $this->action)), 1);
+            throw new \Exception(Lang::get('general.undefined_method', array($controller, $action)), 1);
         }
 
         // Call controller->action(params)
-        call_user_func_array(array(new $this->controller, $this->action), $this->params);
+        call_user_func_array(array(new $controller, $action), $params);
 
         return $this;
     }
