@@ -6,7 +6,7 @@ use Core\Autoloader;
 use Core\Classes\Lang;
 use Core\Classes\View;
 use Core\Classes\Config;
-use Core\Classes\Request;
+use Core\Classes\Router;
 
 $loader = new Autoloader();
 
@@ -35,4 +35,4 @@ set_exception_handler(array('Core\\Classes\\ErrorHandling', 'exceptionHandler'))
 $request = Request::getInstance();
 
 // process the http request and load the controller
-$request->loader();
+$request->requestResponse();

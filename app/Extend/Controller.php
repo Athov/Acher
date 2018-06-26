@@ -11,7 +11,7 @@ class Controller extends MainController
     public function __construct()
     {
         parent::__construct();
-        Lang::setLanguage('bg');
+        Lang::setLanguage('english');
     }
     
 }
