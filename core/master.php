@@ -15,6 +15,8 @@ $loader->register();
 $loader->addNamespace('Core', ROOT . DS . 'core' . DS);
 $loader->addNamespace('App', ROOT . DS . 'app' . DS);
 
+require ROOT . DS . 'app' . DS . 'routes.php';
+
 Config::setFolder(ROOT . DS . 'resources' . DS . 'config' . DS);
 
 Lang::setFolder(ROOT . DS . 'resources' . DS . 'lang' . DS);
@@ -31,15 +33,6 @@ set_error_handler(array('Core\\Classes\\ErrorHandling', 'errorHandler'));
 set_exception_handler(array('Core\\Classes\\ErrorHandling', 'exceptionHandler'));
 
 $request = Request::getInstance();
-
-// Set the controllers namespace
-$request->setNamespace('App\\Controllers\\');
-
-// Set the default controller
-$request->setController($config['default']['controller']);
-
-// Set the default controller action
-$request->setAction($config['default']['action']);
 
 // process the http request and load the controller
 $request->loader();

@@ -7,11 +7,14 @@ class Request {
     private $namespace = null;
     private $uri = array();
     private $controller = null;
-    private $current = null;
     private $action = null;
     private $params = array();
+    private $router = null;
 
-    private function __construct(){}
+    private function __construct()
+    { 
+        $this->router = Router::getInstance();
+    }
     
     public static function getInstance()
     {
@@ -66,7 +69,7 @@ class Request {
     {
         $this->explodeUri()->parseUri()->routeRequest();
     }
-    
+
     private function explodeUri()
     {
         $string = $_SERVER['REQUEST_URI'];
@@ -79,29 +82,22 @@ class Request {
         if(preg_match('/[^a-zA-Z0-9_\/]/', $string)) {
             throw new \Exception('The requested page is not found.',404);
         }
-        
-        $this->uri = $string ? explode('/', trim($string,'/')) : array();
+
+        $this->uri = $string;
         return $this;
     }
 
     private function parseUri()
     {
-        $uri_element = $this->uri;
+        $element = $this->router->matchRoutes($this->uri);
 
-        if( ! empty($uri_element[0]))
+        if(empty($element['controller']))
         {
-            $this->setController(ucfirst($uri_element[0]));
+            throw new \Exception('The requested page is not found.',404);
         }
-
-        if(isset($uri_element[1]))
-        {
-            $this->setAction($uri_element[1]);
-        }
-
-        if(isset($uri_element[2]))
-        {
-            $this->setParams(array_slice($uri_element, 2));
-        }
+        $this->setController($element['controller']);
+        $this->setAction($element['action']);
+        $this->setParams($element['params']);
 
         return $this;
     }

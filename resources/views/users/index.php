@@ -4,7 +4,7 @@
         <a href="/users/create" class="btn btn-primary mb-3">New Account</a>
         <div class="list-group">
 <?php foreach ($users as $row): ?>
-            <a href="users/edit/<?=$row['id']?>" class="list-group-item list-group-item-action"><?=$row['username']?></a>
+            <a href="/users/edit/<?=$row['id']?>" class="list-group-item list-group-item-action"><?=$row['username']?></a>
 <?php endforeach; ?>
         </div>
     </div>
