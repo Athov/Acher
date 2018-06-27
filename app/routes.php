@@ -11,7 +11,7 @@ $router->addRoute('GET', '/users', 'App\\Controllers\\Users@index');
 $router->addRoute('GET', '/users/create', 'App\\Controllers\\Users@create');
 $router->addRoute('GET', '/users/edit/{:id}', 'App\\Controllers\\Users@edit');
 
-$router->addRoute('GET', '/hello/{:name}', function($name)
+$router->addRoute('GET', '/hello/{:any}', function($name)
 {
     echo 'Hello, ' . $name;
 });
