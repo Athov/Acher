@@ -29,7 +29,8 @@ class Input
     
     public static function getInstance()
     {
-        if(self::$instance === null){
+        if(self::$instance === null)
+        {
             self::$instance = new static();
         }
         
@@ -38,7 +39,8 @@ class Input
     
     public static function data($method = 'POST', $key = null)
     {
-        if($key === null) {
+        if($key === null)
+        {
             return (isset(self::$input[$method])) ? self::$input[$method] : null;
         }
         
@@ -67,11 +69,13 @@ class Input
                             $_SERVER['REQUEST_METHOD'];
     }
     
-    private function clean($method_key = null, $data = array())
+    private function clean($method_key = null, $data = array()) // TODO
     {
-        if(is_array($data)) {
-            foreach ($data as $key => $value) {
-                self::$input[$method_key][$key] = Security::cleanInput($value);
+        if(is_array($data))
+        {
+            foreach ($data as $key => $value)
+            {
+                self::$input[$method_key][$key] = $value; // Security::cleanInput($value);
             }
         }
     }

@@ -26,9 +26,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/features">Features</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/users">Users</a>
-                    </li>
                 </ul>
             </div>
         </nav>
@@ -42,7 +39,21 @@
                 </button>
             </div>
         <?php endif; ?>
-        <?php echo $content; ?>
+        <?php if (isset($success)): ?>
+            <div class="alert alert-success alert-dismissible fade show text-left" role="alert">
+                <span><?php echo $success; ?></span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <?php endif; ?>
+
+
+
+        <?php echo $content; // This is the view output ?>
+
+
+
     </div>
     <footer class="container">
         <hr />

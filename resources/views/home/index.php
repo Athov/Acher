@@ -10,7 +10,7 @@
             <?php foreach($pictures as $picture): ?>
             <div class="col-3 mx-auto mb-4">
                 <a href="/pictures/<?=$picture['id']?>">
-                    <img class="img-fluid" src="http://via.placeholder.com/350x350" alt="<?=$picture['title']?>">
+                    <img class="img-fluid" src="<?=$picture['url']; ?>" alt="<?=$picture['title']?>">
                 </a>
             </div>
             <?php endforeach; ?>

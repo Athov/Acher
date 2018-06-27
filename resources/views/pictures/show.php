@@ -1,6 +1,6 @@
 <div class="card border-secondary">
-    <h2 class="card-header"><?=$picture['title']; ?></h2>
+    <h2 class="card-header"><?=$picture['title']; ?> <a href="/pictures/edit/<?=$picture['id']; ?>" class="btn btn-success">Edit</a></h2>
     <div class="card-body">
-        <img src="http://via.placeholder.com/950x950" alt="<?=$picture['title']?>" class="mx-auto d-block img-fluid" />
+        <img src="<?=$picture['url']; ?>" alt="<?=$picture['title']?>" class="mx-auto d-block img-fluid" />
     </div>
 </div>
