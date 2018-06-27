@@ -55,11 +55,14 @@ class Acher
     {
         $config = Config::get('general');
         
+        ErrorHandling::setEnvironment($config['environment']);
+        
         Lang::setLanguage($config['language']);
         
         View::setThemeFile($config['theme_file']);
         
         View::setFolder($config['views_folder']);
+        
     }
 
     public function setupErrorHandling()

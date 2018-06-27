@@ -15,49 +15,74 @@ namespace Core\Classes;
  */
 class ErrorHandling 
 {
-    public static function exceptionHandler($err)
+    private static $environment = 'production';
+
+    public static function setEnvironment($environment)
     {
-        if(ENV != 'development')
-        {
-            $errMsg = 'An unexpected error has occurred!';
-            $errCode = 1;
-            if($err->getCode() === 404)
-            {
-                $errMsg = 'The requested page was not found!';
-                $errCode = 404;
-            }
-        } else {
-            $errMsg = $err->getMessage();
-            $errCode = $err->getCode();
-        }
-        self::showMessages($errMsg, $errCode);
+        self::$environment = $environment;
     }
 
-    public static function errorHandler($err_number, $err_string, $err_file, $err_line)
+    public static function getEnvironment()
     {
-        if(ENV != 'development')
-        {
-            $err_message = 'An unexpected error has occurred!';
-            $err_number = 1;
-            if($err->getCode() === 404)
-            {
-                $err_message = 'The requested page was not found!';
-                $err_number = 404;
-            }
-        } else {
-            $err_message = $err_string;
-            $err_message .= "<br>";
-            $err_message .= 'Line: ' . $err_line;
-            $err_message .= "<br>";
-            $err_message .= 'File: ' . $err_file;
+        return self::$environment;
+    }
 
+    public static function inProduction()
+    {
+        return (self::getEnvironment() == 'production');
+    }
+
+    public static function exceptionHandler($exception)
+    {
+        if(self::inProduction())
+        {
+            $error_message = 'An unexpected error has occurred!';
+            $error_code = 1;
+            if($exception->getCode() === 404)
+            {
+                $error_message = 'The page was not found!';
+                $error_code = 404;
+            }
         }
-        self::showMessages($err_message, $err_number);
+        else
+        {
+            $error_message = $exception->getMessage();
+            $error_message .= "<br>";
+            $error_message .= 'Line: ' . $exception->getLine();
+            $error_message .= "<br>";
+            $error_message .= 'File: ' . $exception->getFile();
+
+            $error_code = $exception->getCode();
+        }
+        self::showMessages($error_message, $error_code);
+    }
+
+    public static function errorHandler($error_code, $error, $file, $line)
+    {
+        if(self::inProduction())
+        {
+            $error_message = 'An unexpected error has occurred!';
+            $error_code = 1;
+            if($error_code === 404)
+            {
+                $error_message = 'The page was not found!';
+                $error_code = 404;
+            }
+        }
+        else
+        {
+            $error_message = $error;
+            $error_message .= "<br>";
+            $error_message .= 'Line: ' . $line;
+            $error_message .= "<br>";
+            $error_message .= 'File: ' . $file;
+        }
+        self::showMessages($error_message, $error_code);
     }
     
-    public static function showMessages($text, $error_num = 1)
+    public static function showMessages($error_message, $error_code = 1)
     {
-        $data['error'] = self::processMessages($text, $error_num);
+        $data['error'] = self::processMessages($error_message, $error_code);
         View::setThemeFile(null);
         $view = new View();
         $view->setData($data);
@@ -66,9 +91,9 @@ class ErrorHandling
         exit;
     }
     
-    public static function processMessages($text, $err_num)
+    public static function processMessages($error_message, $error_code)
     {
-        $error_num = array(
+        $error_type = array(
             1	=> 'An Error Was Encountered',
             2	=> 'Fatal Error',
             3	=> 'Successfully',
@@ -77,7 +102,7 @@ class ErrorHandling
             201	=> 'Created',
             202	=> 'Accepted',
 
-            300	=> 'Error 300:	Multiple Choices',
+            300	=> 'Error 300: Multiple Choices',
             301	=> 'Error 301: Moved Permanently',
             302	=> 'Error 302: Found',
             304	=> 'Error 304: Not Modified',
@@ -92,15 +117,16 @@ class ErrorHandling
             406	=> 'Error 406: Not Acceptable',
         );
 
-        if(is_numeric($err_num))
+        if(is_numeric($error_code))
         {
-            $error['title'] = (isset($error_num[$err_num]))? $error_num[$err_num]: $error_num[1];
-            $error['message'] = str_replace(ROOT, 'ROOT', $text);
-            return $error;
+            return array(
+                'title' => (isset($error_type[$error_code]))? $error_type[$error_code]: $error_type[1],
+                'message' => str_replace(ROOT, '', $error_message)
+            );
         }
         else
         {
-            self::processMessages('Error type and number need to be only integer(numbers)!!!', 400);
+            self::processMessages('Error code should be a number.', 400);
         }
     }
 }
