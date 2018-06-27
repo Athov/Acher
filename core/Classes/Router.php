@@ -15,8 +15,18 @@ namespace Core\Classes;
  */
 class Router
 {
+	/**
+     * Static
+	 * @var string The instance of the class
+	 */
     private static $instance = null;
+	/**
+	 * @var array Collection of routes
+	 */
     private $routes = array();
+	/**
+	 * @var array Patterns for matching
+	 */
     private $patterns = array(
         ':any'  => '.*',
         ':id'   => '[0-9]+',
@@ -62,6 +72,7 @@ class Router
         }
         
         // The URI should include only letters, numbers, forward slash(/) or a dash(-)
+        // if not throw an Exception
         if(preg_match('/[^a-zA-Z0-9_\/-]/', $string))
         {
             throw new \Exception(Lang::get('general.page_not_found'),404);

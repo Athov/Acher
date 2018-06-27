@@ -11,10 +11,7 @@
 require ROOT . DS . 'core' . DS . 'Autoloader.php';
 
 use Core\Autoloader;
-use Core\Classes\Lang;
-use Core\Classes\View;
-use Core\Classes\Config;
-use Core\Classes\Request;
+use Core\Classes\Acher;
 
 $loader = new Autoloader();
 
@@ -23,24 +20,19 @@ $loader->register();
 $loader->addNamespace('Core', ROOT . DS . 'core' . DS);
 $loader->addNamespace('App', ROOT . DS . 'app' . DS);
 
-require ROOT . DS . 'app' . DS . 'routes.php';
+$acher = Acher::getInstance();
 
-Config::setFolder(ROOT . DS . 'resources' . DS . 'config' . DS);
+// Setup the required folders
+$acher->setupFolders();
 
-Lang::setFolder(ROOT . DS . 'resources' . DS . 'lang' . DS);
+// Set the required configuration
+$acher->setConfiguration();
 
-$config = Config::get('general');
+// Include the routes file
+$acher->includeRoutes();
 
-Lang::setLanguage($config['language']);
+// Setup the error handling 
+$acher->setupErrorHandling();
 
-View::setThemeFile($config['theme_file']);
-
-View::setFolder($config['views_folder']);
-
-set_error_handler(array('Core\\Classes\\ErrorHandling', 'errorHandler'));
-set_exception_handler(array('Core\\Classes\\ErrorHandling', 'exceptionHandler'));
-
-$request = Request::getInstance();
-
-// process the http request and load the controller
-$request->requestResponse();
+// Process the http request and load the controller
+$acher->processHttpRequest();
