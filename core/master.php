@@ -15,10 +15,10 @@ use Core\Classes\Acher;
 
 $loader = new Autoloader();
 
-$loader->register();
-
 $loader->addNamespace('Core', ROOT . DS . 'core' . DS);
 $loader->addNamespace('App', ROOT . DS . 'app' . DS);
+
+$loader->register();
 
 $acher = Acher::getInstance();
 

@@ -58,7 +58,7 @@ class ErrorHandling
     public static function showMessages($text, $error_num = 1)
     {
         $data['error'] = self::processMessages($text, $error_num);
-        View::setThemeFile(false);
+        View::setThemeFile(null);
         $view = new View();
         $view->setData($data);
         $view->setFile('message','view');
