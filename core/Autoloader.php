@@ -194,9 +194,16 @@ class Autoloader
         return false;
     }
     
+    /**
+     * Set a alias for a class.
+     * array('\Foo\Bar\Qux\Quux' => 'Quux')
+     * 
+     * @param array $aliases The file to require.
+     * @return void
+     */
     public function setAliases($aliases)
     {
-        foreach($aliases  as $alias => $class)
+        foreach($aliases as $alias => $class)
         {
             class_alias($class, $alias);
         }

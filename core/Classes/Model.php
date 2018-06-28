@@ -23,9 +23,7 @@ class Model
     
     public function __construct()
     {
-        $config = Config::get('general');
-
-        $this->db = ($config['autoload']['database']) ? new Database() : null;
-        $this->input = ($config['autoload']['input']) ? Input::getInstance() : null;
+        $this->db = new Database();
+        $this->input = Input::getInstance();
     }
 }

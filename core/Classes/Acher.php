@@ -51,17 +51,16 @@ class Acher
     {
         Config::setFolder(ROOT . DS . 'resources' . DS . 'config' . DS);
         Language::setFolder(ROOT . DS . 'resources' . DS . 'lang' . DS);
+        View::setFolder(ROOT . DS . 'resources' . DS . 'views' . DS);
     }
 
     public function setConfiguration()
     {
-        $config = Config::get('general');
+        $config = Config::get('app');
         
         ErrorHandling::setEnvironment($config['environment']);
         
         View::setThemeFile($config['theme_file']);
-        
-        View::setFolder($config['views_folder']);
         
     }
 

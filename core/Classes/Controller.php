@@ -24,9 +24,7 @@ class Controller
 
     public function __construct()
     {
-        $config = Config::get('general');
-        $this->input = ($config['autoload']['input']) ? Input::getInstance() : null;
-        $this->validation = ($config['autoload']['validation']) ? new Validation() : null;
+        $this->input = Input::getInstance();
         $this->view = new View();
     }
 }
