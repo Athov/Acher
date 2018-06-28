@@ -20,19 +20,10 @@ class Validation
     private $data = array();
     private $errors = array();
     
-    private function __construct()
+    public function __construct()
     {
         $this->language = new Language();
         $this->language->set('english');
-    }
-    
-    public static function getInstance()
-    {
-        if(self::$instance === null){
-            self::$instance = new static();
-        }
-        
-        return self::$instance;
     }
 
     public function setRules($post, $label, $rules)

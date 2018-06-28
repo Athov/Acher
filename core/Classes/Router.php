@@ -134,7 +134,7 @@ class Router
             foreach ($routes[$method] as $route => $target)
             {
                 // Check if a route has a parameter {:p}
-                if(preg_match('/({:.+?})/', $route))
+                if(preg_match('/{(:.+?)}/', $route))
                 {
                     // Replace every {:p} with a pattern
                     $route = preg_replace_callback('/{(:.+?)}/', function($key)

@@ -26,7 +26,7 @@ class Controller
     {
         $config = Config::get('general');
         $this->input = ($config['autoload']['input']) ? Input::getInstance() : null;
-        $this->validation = ($config['autoload']['validation']) ? Validation::getInstance() : null;
+        $this->validation = ($config['autoload']['validation']) ? new Validation() : null;
         $this->view = new View();
     }
 }
