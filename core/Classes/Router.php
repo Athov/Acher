@@ -26,6 +26,7 @@ class Router
     private $routes = array();
 	/**
 	 * @var array Patterns for matching
+     * the route with URI
 	 */
     private $patterns = array(
         ':any'  => '.*',
@@ -43,7 +44,7 @@ class Router
     /**
      * Make the class Singleton.
      *
-     * @return class The instance of this class
+     * @return object The instance of this class
      */
     public static function getInstance()
     {
@@ -64,8 +65,7 @@ class Router
     {
         $string = $_SERVER['REQUEST_URI'];
         
-        // Check if the URI has a GET request and remove it 
-        // from string
+        // Check if the URI has a GET request and remove it
         if (strpos($string, '?') > 0)
         {
             $string = str_replace(strstr($string, '?'), '', $string);
@@ -75,7 +75,7 @@ class Router
         // if not throw an Exception
         if(preg_match('/[^a-zA-Z0-9_\/-]/', $string))
         {
-            throw new \Exception(Lang::get('general.page_not_found'),404);
+            throw new \Exception('The URI string is invalid.', 2);
         }
 
         return $string;
@@ -108,12 +108,12 @@ class Router
      *
      * @param string $method The request method(POST,GET)
      * @param string $route The uri of the route
-     * @param mixed $location A function() or a string
+     * @param mixed $target A function() or a string
      * @return void
      */
-    public function addRoute($method, $route, $location)
+    public function addRoute($method, $route, $target)
     {
-        $this->routes[$method][$route] = $location;
+        $this->routes[$method][$route] = $target;
     }
 
     /**
@@ -131,9 +131,9 @@ class Router
         if(array_key_exists($method, $routes))
         {
             // Loop all routes with the requested method
-            foreach ($routes[$method] as $route => $location)
+            foreach ($routes[$method] as $route => $target)
             {
-                // Check if a route has a parameter({:p})
+                // Check if a route has a parameter {:p}
                 if(preg_match('/({:.+?})/', $route))
                 {
                     // Replace every {:p} with a pattern
@@ -152,13 +152,15 @@ class Router
                     continue ;
                 }
 
-                // Get the URI parameters
+                // Get arguments from the URI
+                // example "target/2/3/4" from this the
+                // arguments are 2/3/4
                 $route_explode = explode('/', $route);
-                $params = array_diff(array_replace($route_explode, explode('/', $uri)), $route_explode);
+                $arguments = array_diff(array_replace($route_explode, explode('/', $uri)), $route_explode);
 
                 return array(
-                    'location' => $location,
-                    'params' => $params
+                    'target' => $target,
+                    'arguments' => $arguments
                 );
             }
         }
@@ -178,27 +180,27 @@ class Router
         // Check if a route is found
         if( ! $route)
         {
-            throw new \Exception(Lang::get('general.page_not_found'),404);
+            throw new \Exception('The route is not found.',404);
         }
 
-        $location = $route['location'];
-        $params = $route['params'];
+        $target = $route['target'];
+        $arguments = $route['arguments'];
         
-        // Check if $location is string and includes @
-        if(is_string($location) && strpos($location, '@'))
+        // Check if $target is string and includes @
+        if(is_string($target) && strpos($target, '@'))
         {
             // Request a class
-            $this->requestClass($location, $params);
+            $this->requestClass($target, $arguments);
         }
-        // If no parameters run a function
-        elseif(empty($params))
+        // If no arguments run a function
+        elseif(empty($arguments))
         {
-            return $location(); 
+            return $target(); 
         }
-        // Call the function with parameters
+        // Call the function with arguments
         else
         {
-            call_user_func_array($location, $params);
+            call_user_func_array($target, $arguments);
         }
 
         return $this;
@@ -207,31 +209,30 @@ class Router
     /**
      * Call a requested class
      *
-     * @param string $location The requested class name and 
+     * @param string $target The requested class name and 
      * action in a string format(Class@action)
      * @param array $params Array with the arguments
      * @return void
      * @throws Exception
-     * @throws Exception 
      */
-    private function requestClass($location, $params)
+    private function requestClass($target, $arguments)
     {
-        list($controller, $action) = explode('@', $location);
+        list($controller, $action) = explode('@', $target);
 
         // Check to see if the controller class exists
         if( ! class_exists($controller))
         { 
-            throw new \Exception(Lang::get('general.class_not_found', $controller), 404); 
+            throw new \Exception('The class "' . $controller . '" was not found.', 404); 
         }
         
         // Check to see if the action exist
         if( ! method_exists($controller, $action))
         {
-            throw new \Exception(Lang::get('general.undefined_method', array($controller, $action)), 1);
+            throw new \Exception('Undefined method "' . $controller . '::' . $action . '()".', 2);
         }
 
-        // Call controller->action(params)
-        call_user_func_array(array(new $controller, $action), $params);
+        // Call controller->action(arguments)
+        call_user_func_array(array(new $controller, $action), $arguments);
     }
 
 }

@@ -2,8 +2,7 @@
 
 namespace App\Controllers;
 
-use Core\Classes\Controller as Controller;
-use Core\Classes\Lang;
+use App\Extend\Controller as Controller;
 
 class Features extends Controller
 {

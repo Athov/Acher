@@ -3,15 +3,19 @@
 namespace App\Extend;
 
 use Core\Classes\Controller as MainController;
-use Core\Classes\View as View;
-use Core\Classes\Lang as Lang;
+use Core\Helpers\Language;
 
 class Controller extends MainController
 {
+    protected $language = null;
     public function __construct()
     {
         parent::__construct();
-        Lang::setLanguage('english');
+        $this->language = new Language();
+        $this->language->set('english');
+        $this->view->setData(array(
+            'title' => $this->language->load('titles')
+        ));
     }
     
 }

@@ -34,7 +34,7 @@ class Config
 
         if (! file_exists($file_path))
         {
-            throw new \Exception(Lang::get('general.non_existent_unreadable_file', $file_path));
+            throw new \Exception('The config file "' . $file_path . '" does not exists.');
         }
         return include $file_path;
     }
@@ -43,7 +43,7 @@ class Config
     {
         if(empty($file_name))
         {
-            throw new \Exception(Lang::get('general.empty_file_name', 'config'));
+            throw new \Exception('The config file name is empty');
         }
         
         if(array_key_exists($file_name, self::$loaded))

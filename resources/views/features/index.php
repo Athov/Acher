@@ -1,5 +1,5 @@
 <div class="card border-secondary">
-    <h2 class="card-header">Features</h2>
+    <h2 class="card-header"><?=$title['features'];?></h2>
     <div class="card-body">
         <p>
             Lorem ipsum dolor sit amet,

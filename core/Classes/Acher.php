@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 namespace Core\Classes;
+
+use Core\Helpers\Language;
 /**
  * Acher class.
  *
@@ -29,7 +31,7 @@ class Acher
     /**
      * Make the class Singleton.
      *
-     * @return class The instance of this class
+     * @return object The instance of this class
      */
     public static function getInstance()
     {
@@ -48,7 +50,7 @@ class Acher
     public function setupFolders()
     {
         Config::setFolder(ROOT . DS . 'resources' . DS . 'config' . DS);
-        Lang::setFolder(ROOT . DS . 'resources' . DS . 'lang' . DS);
+        Language::setFolder(ROOT . DS . 'resources' . DS . 'lang' . DS);
     }
 
     public function setConfiguration()
@@ -56,8 +58,6 @@ class Acher
         $config = Config::get('general');
         
         ErrorHandling::setEnvironment($config['environment']);
-        
-        Lang::setLanguage($config['language']);
         
         View::setThemeFile($config['theme_file']);
         

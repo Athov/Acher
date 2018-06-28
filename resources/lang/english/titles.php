@@ -2,6 +2,6 @@
 
 return array(
     'home' => 'Hello World!',
-    'products' => 'Products',
-    'product' => 'Product Details' 
+    'features' => 'Features',
+    'pictures' => 'All Pictures' 
 );

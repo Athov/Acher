@@ -34,5 +34,5 @@ $acher->includeRoutes();
 // Setup the error handling 
 $acher->setupErrorHandling();
 
-// Process the http request and load the controller
+// Process the http request
 $acher->processHttpRequest();

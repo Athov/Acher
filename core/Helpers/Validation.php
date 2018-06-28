@@ -8,8 +8,6 @@
  * file that was distributed with this source code.
  */
 namespace Core\Helpers;
-
-use Core\Classes\Lang;
 /**
  * Validation class.
  *
@@ -18,10 +16,15 @@ use Core\Classes\Lang;
 class Validation 
 {
     private static $instance = null;
+    private $language = null;
     private $data = array();
     private $errors = array();
     
-    private function __construct(){ }
+    private function __construct()
+    {
+        $this->language = new Language();
+        $this->language->set('english');
+    }
     
     public static function getInstance()
     {
@@ -102,7 +105,7 @@ class Validation
         if($returned == false)
         {
             $data[0] = strtolower($data[0]);
-            $this->errors[strtolower($data[1])] = Lang::get('validation.' . $data[0], array_merge(array($data[2]), $data[3]));
+            $this->errors[strtolower($data[1])] = $this->language->translate('validation.' . $data[0], array_merge(array($data[2]), $data[3]));
             return false;
         }
         

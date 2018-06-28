@@ -153,7 +153,7 @@ class View
         // Check if the file doesn't exist and throw an Exception
         if ( ! file_exists($file_path))
         {
-            throw new \Exception(Lang::get('general.non_existent_file', $file_path));
+            throw new \Exception(Lang::get('error.non_existent_file', $file_path));
         }
 
         // Set the file
