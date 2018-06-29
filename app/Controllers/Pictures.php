@@ -41,12 +41,12 @@ class Pictures extends Controller
             
             if(filter_var($url, FILTER_VALIDATE_URL) === false)
             {
-                $data['error'][] = 'This URL is not valid.';
+                $data['error'][] = $this->language->translate('messages.url_invalid');
             }
             if( ! isset($data['error']))
             {
                 $this->picture->create($title, $url);
-                $data['success'] = 'The picture is added.';
+                $data['success'] = $this->language->translate('messages.picture_added');
             }
             $this->view->setData($data);
             $this->index();
@@ -73,12 +73,12 @@ class Pictures extends Controller
             
             if(filter_var($url, FILTER_VALIDATE_URL) === false)
             {
-                $data['error'][] = 'This URL is not valid.';
+                $data['error'][] = $this->language->translate('messages.url_invalid');
             }
             if( ! isset($data['error']))
             {
                 $this->picture->update($id, $title, $url);
-                $data['success'] = 'The picture is updated.';
+                $data['success'] = $this->language->translate('messages.picture_updated');
             }
             $this->view->setData($data);
             $this->edit($id);
@@ -90,7 +90,7 @@ class Pictures extends Controller
         if($this->input->method() === 'DELETE')
         {
             $this->picture->delete($id);
-            $data['success'] = 'The picture is deleted.';
+            $data['success'] = $this->language->translate('messages.picture_deleted');
             $this->view->setData($data);
             $this->index();
         }

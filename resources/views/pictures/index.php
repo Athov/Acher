@@ -1,5 +1,5 @@
 <div class="card border-secondary">
-    <h2 class="card-header"><?=$title['pictures'];?> <a href="/pictures/create" class="btn btn-primary btn-sm">Add new picture</a></h2>
+    <h2 class="card-header"><?=$title['pictures'];?> <a href="/pictures/create" class="btn btn-primary btn-sm"><?=$title['button']['add_picture']; ?></a></h2>
     <div class="card-body">
         <div class="row">
             <?php foreach($pictures as $picture): ?>

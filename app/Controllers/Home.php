@@ -22,7 +22,7 @@ class Home extends Controller
         }
         else
         {
-            $data['error'][] = 'The selected language is not defined.';
+            $data['error'][] = $this->language->translate('messages.language_not_defined');
         }
         $this->view->setData($data);
         $this->index();
