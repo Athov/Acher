@@ -10,7 +10,6 @@
 namespace Core\Classes;
 
 use Core\Helpers\Database;
-use Core\Helpers\Input;
 /**
  * Model class.
  *

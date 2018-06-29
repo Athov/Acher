@@ -10,7 +10,6 @@
 namespace Core\Classes;
 
 use Core\Helpers\Validation;
-use Core\Helpers\Input;
 /**
  * Controller class.
  *
