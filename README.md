@@ -1,8 +1,7 @@
 Acher
 =====
-
-<b>A small php mvc framework.</b>
-<p align="center">
+<p>
+    <b>A small php mvc framework.</b>
     Version: <b>0.8</b>  
 </p>
 <p align="center">
