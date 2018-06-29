@@ -134,14 +134,25 @@ class View
     }
     
     /**
-     * Set a file.
+     * Set the view or theme file.
      *
      * @param string $name The name of a file
      * @param string $type The type of a file (view or theme) 
      * default is view
-     * @return $this
+     * @return void
      */
-    public function setFile($name, $type = 'view')
+    public function setFile($name, $type)
+    {
+        $this->file[$type] = $name;
+    }
+
+    /**
+     * Check if the view file exist and return the path.
+     *
+     * @param string $name The name of a file
+     * @return string The file path
+     */
+    public function loadView($name)
     {
         // Replace every forward slash(/) and backward slash(\) 
         // to DIRECTORY_SEPARATOR
@@ -153,12 +164,10 @@ class View
         // Check if the file doesn't exist and throw an Exception
         if ( ! file_exists($file_path))
         {
-            throw new \Exception(Lang::get('error.non_existent_file', $file_path));
+            throw new \Exception('The view file "' . $file_path . '" does not exists.');
         }
 
-        // Set the file
-        $this->file[$type] = $file_path;
-        return $this;
+        return $file_path;
     }
 
     /**
@@ -179,8 +188,10 @@ class View
      */
     public function render()
     {
+        $theme = $this->getFile('theme');
+        
         // Check if theme file is not empty and a string.
-        if (empty($this->getFile('theme')) OR !is_string($this->getFile('theme')))
+        if (empty($theme) OR !is_string($theme))
         {
             // if no theme file exists then echo the content 
             // from the view file
@@ -196,7 +207,7 @@ class View
             $content = $this->process();
             
             // Require the theme file
-            require_once $this->getFile('theme');
+            require_once $this->loadView($theme);
         }
     }
     
@@ -217,7 +228,7 @@ class View
         try
         {
             // Load the view
-            require_once $this->getFile('view');
+            require_once $this->loadView($this->getFile('view'));
         }
         catch (\Exception $err)
         {
