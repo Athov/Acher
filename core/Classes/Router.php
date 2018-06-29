@@ -96,11 +96,9 @@ class Router
      *
      * @return string The method
      */
-    public function getRequestMethod() // TODO PUT, DELETE
+    public function getRequestMethod()
     {
-        return (isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'])) ? 
-                        $_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'] : 
-                            $_SERVER['REQUEST_METHOD'];
+        return (Input::getInstance())->method();
     }
     
     /**

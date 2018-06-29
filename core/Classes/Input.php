@@ -7,9 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Core\Helpers;
-
-use Core\Classes\Security;
+namespace Core\Classes;
 /**
  * Input class.
  *
@@ -22,9 +20,9 @@ class Input
 
     private function __construct()
     {
-        $this->clean('POST', $_POST);
-        $this->clean('GET', $_GET);
-        $this->clean('COOKIE', $_COOKIE);
+        $this->set('POST', $_POST);
+        $this->set('GET', $_GET);
+        $this->set('COOKIE', $_COOKIE);
     }
     
     public static function getInstance()
@@ -69,13 +67,13 @@ class Input
                             $_SERVER['REQUEST_METHOD'];
     }
     
-    private function clean($method_key = null, $data = array()) // TODO
+    private function set($method_key = null, $data = array())
     {
         if(is_array($data))
         {
             foreach ($data as $key => $value)
             {
-                self::$input[$method_key][$key] = $value; // Security::cleanInput($value);
+                self::$input[$method_key][$key] = $value;
             }
         }
     }
