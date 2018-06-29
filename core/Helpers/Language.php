@@ -19,6 +19,11 @@ class Language
     private static $folder = null;
     private $language = null;
 
+    public function __construct($language)
+    {
+        $this->set($language);
+    }
+
     public function set($language)
     {
         $this->language = $language;

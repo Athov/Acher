@@ -10,4 +10,20 @@ class Home extends Controller
     {
         $this->view->forge('home/index');
     }
+
+    public function language($language)
+    {
+        $languages = array('english', 'bulgarian');
+        if(in_array($language, $languages))
+        {
+            $_SESSION['language'] = $language;
+            header('Location: /');
+        }
+        else
+        {
+            $data['error'][] = 'The selected language is not defined.';
+        }
+        $this->view->setData($data);
+        $this->index();
+    }
 }

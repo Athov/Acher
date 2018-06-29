@@ -60,7 +60,7 @@ class Acher
         
         ErrorHandling::setEnvironment($config['environment']);
         
-        View::setThemeFile($config['theme_file']);
+        View::setLayout($config['default_layout']);
         
     }
 

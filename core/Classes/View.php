@@ -20,9 +20,9 @@ class View
 	 */
     private static $folder = null;
 	/**
-	 * @var string The theme file name
+	 * @var string The layout file name
 	 */
-    private static $theme_file = null;
+    private static $layout = null;
 	/**
 	 * @var array The view data
 	 */
@@ -32,7 +32,7 @@ class View
 	 * @var array The loaded files
 	 */
     private $file = array(
-        'theme' => null,
+        'layout' => null,
         'view' => null
     );
 
@@ -43,11 +43,11 @@ class View
      */
     public function forge($view = null, $data = array())
     {
-        // Check if theme file is not empty
-        if( ! empty(self::getThemeFile()))
+        // Check if layout file is not empty
+        if( ! empty(self::getLayout()))
         {
-            // Set the theme file
-            $this->setFile(self::getThemeFile(), 'theme');
+            // Set the layout file
+            $this->setFile(self::getLayout(), 'layout');
         }
 
         // Set the view file
@@ -85,26 +85,26 @@ class View
     
     /**
      * Static
-     * Set the theme file
+     * Set the layout file
      *
-     * @param string $file_name The theme file name
+     * @param string $file_name The layout file name
      * located in the views folder
      * @return void
      */
-    public static function setThemeFile($file_name)
+    public static function setLayout($file_name)
     {
-        self::$theme_file = $file_name;
+        self::$layout = $file_name;
     }
     
     /**
      * Static
-     * Get the current theme file
+     * Get the current layout file
      *
      * @return string
      */
-    public static function getThemeFile()
+    public static function getLayout()
     {
-        return self::$theme_file;
+        return self::$layout;
     }
     
     /**
@@ -134,10 +134,10 @@ class View
     }
     
     /**
-     * Set the view or theme file.
+     * Set the view or layout file.
      *
      * @param string $name The name of a file
-     * @param string $type The type of a file (view or theme) 
+     * @param string $type The type of a file (view or layout) 
      * default is view
      * @return void
      */
@@ -171,9 +171,9 @@ class View
     }
 
     /**
-     * Get the view or theme file.
+     * Get the view or layout file.
      *
-     * @param string $type The type of a file (view or theme)
+     * @param string $type The type of a file (view or layout)
      * @return string
      */
     public function getFile($type)
@@ -182,18 +182,18 @@ class View
     }
     
     /**
-     * Render the view with theme.
+     * Render the view with layout.
      *
      * @return void
      */
     public function render()
     {
-        $theme = $this->getFile('theme');
+        $layout = $this->getFile('layout');
         
-        // Check if theme file is not empty and a string.
-        if (empty($theme) OR !is_string($theme))
+        // Check if layout file is not empty and a string.
+        if (empty($layout) OR !is_string($layout))
         {
-            // if no theme file exists then echo the content 
+            // if no layout file exists then echo the content 
             // from the view file
             echo $this->process();
         }
@@ -206,8 +206,8 @@ class View
             // Add the new content to local variables 
             $content = $this->process();
             
-            // Require the theme file
-            require_once $this->loadView($theme);
+            // Require the layout file
+            require_once $this->loadView($layout);
         }
     }
     

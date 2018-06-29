@@ -10,9 +10,13 @@ class Controller extends MainController
     protected $language = null;
     public function __construct()
     {
+        session_start();
         parent::__construct();
-        $this->language = new Language();
-        $this->language->set('english');
+        $this->language = new Language('english');
+        if(isset($_SESSION['language']))
+        {
+            $this->language->set($_SESSION['language']);
+        }
         $this->view->setData(array(
             'title' => $this->language->load('titles')
         ));
