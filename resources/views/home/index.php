@@ -1,9 +1,9 @@
 <div class="card border-secondary">
     <h2 class="card-header"><?=$title['home'];?></h2>
     <div class="card-body">
-        <h5 class="card-title">Welcome to the landing page. </h5>
-        <h6 class="card-subtitle mb-2 text-muted">Here you can find information about the framework.</h6>
-        <p class="text-muted mb-2 text-left">Pictures table</p>
+        <h5 class="card-title"><?=$language['welcome']; ?></h5>
+        <h6 class="card-subtitle mb-2 text-muted"><?=$language['information']; ?></h6>
+        <p class="text-muted mb-2 text-left"><?=$language['pictures_table']; ?></p>
         
 <div class="alert alert-secondary text-left">
 <pre>

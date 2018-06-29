@@ -8,7 +8,8 @@ class Home extends Controller
 {
     public function index()
     {
-        $this->view->forge('home/index');
+        $data['language'] = $this->language->load('home');
+        $this->view->forge('home/index', $data);
     }
 
     public function language($language)

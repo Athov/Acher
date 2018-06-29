@@ -18,7 +18,8 @@ class Controller extends MainController
             $this->language->set($_SESSION['language']);
         }
         $this->view->setData(array(
-            'title' => $this->language->load('titles')
+            'title' => $this->language->load('titles'),
+            'language_menu' => $this->language->load('menu')
         ));
     }
     

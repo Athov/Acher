@@ -18,21 +18,21 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
+                        <a class="nav-link" href="/"><?=$language_menu['home']; ?></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/pictures">Pictures</a>
+                        <a class="nav-link" href="/pictures"><?=$language_menu['pictures']; ?></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/features">Features</a>
+                        <a class="nav-link" href="/features"><?=$language_menu['features']; ?></a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Language
+                        <?=$language_menu['language']; ?>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/language/english">English</a>
-                            <a class="dropdown-item" href="/language/bulgarian">Bulgarian</a>
+                            <a class="dropdown-item" href="/language/english"><?=$language_menu['language_english']; ?></a>
+                            <a class="dropdown-item" href="/language/bulgarian"><?=$language_menu['language_bulgarian']; ?></a>
                         </div>
                     </li>
                 </ul>
