@@ -29,7 +29,11 @@ class Pictures extends Controller
     
     public function create()
     {
-        $data = array();
+        $this->view->forge('pictures/create');
+    }
+
+    public function store()
+    {
         if($this->input->method() === 'POST')
         {
             $title = filter_var($this->input->post('title'), FILTER_SANITIZE_STRING);
@@ -44,8 +48,9 @@ class Pictures extends Controller
                 $this->picture->create($title, $url);
                 $data['success'] = 'The picture is added.';
             }
+            $this->view->setData($data);
+            $this->index();
         }
-        $this->view->forge('pictures/create', $data);
     }
     
     public function edit(int $id) // gives error on PHP 5 works on PHP 7
@@ -55,7 +60,13 @@ class Pictures extends Controller
         {
             header('Location: /pictures');
         }
-        if($this->input->method() === 'POST')
+        $data['picture'] = $picture;
+        $this->view->forge('pictures/edit', $data);
+    }
+
+    public function update(int $id) // gives error on PHP 5 works on PHP 7
+    {
+        if($this->input->method() === 'PUT')
         {
             $title = filter_var($this->input->post('title'), FILTER_SANITIZE_STRING);
             $url = filter_var($this->input->post('url'), FILTER_SANITIZE_URL);
@@ -69,8 +80,19 @@ class Pictures extends Controller
                 $this->picture->update($id, $title, $url);
                 $data['success'] = 'The picture is updated.';
             }
+            $this->view->setData($data);
+            $this->edit($id);
         }
-        $data['picture'] = $picture;
-        $this->view->forge('pictures/edit', $data);
+    }
+
+    public function delete(int $id) // gives error on PHP 5 works on PHP 7
+    {
+        if($this->input->method() === 'DELETE')
+        {
+            $this->picture->delete($id);
+            $data['success'] = 'The picture is deleted.';
+            $this->view->setData($data);
+            $this->index();
+        }
     }
 }

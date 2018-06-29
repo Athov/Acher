@@ -18,7 +18,6 @@ use Core\Helpers\Validation;
 class Controller 
 {
     protected $input = null;
-    protected $validation = null;
     protected $view = null;
 
     public function __construct()

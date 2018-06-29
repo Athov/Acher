@@ -98,7 +98,7 @@ class Router
      */
     public function getRequestMethod()
     {
-        return (Input::getInstance())->method();
+        return Input::getInstance()->method();
     }
     
     /**

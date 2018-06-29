@@ -42,4 +42,10 @@ class Picture extends Model
         );
         $this->db->prepare("UPDATE `pictures` SET `title` = :title, `url` = :url WHERE `id` = :id")->execute($data);
     }
+    
+    public function delete($id)
+    {
+        $data = array('id' => $id);
+        $this->db->prepare("DELETE FROM `pictures` WHERE `id` = :id")->execute($data);
+    }
 }
