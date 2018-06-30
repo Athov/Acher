@@ -51,9 +51,7 @@ class Acher
 
     public function setConfiguration()
     {
-        $config = Config::get('app');
-        
-        ErrorHandling::setEnvironment($config['environment']);
+        ErrorHandling::setEnvironment(Config::get('app.environment'));
     }
 
     public function setupErrorHandling()
@@ -65,7 +63,7 @@ class Acher
     public function processHttpRequest()
     {
         $router = Router::getInstance();
-        $router->setRoutes(Config::get('routes'));
+        $router->setRoutes(Config::load('routes'));
         $router->response();
     }
 }

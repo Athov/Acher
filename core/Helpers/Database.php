@@ -19,7 +19,7 @@ class Database extends \PDO
 {
     public function __construct()
     {
-        $db_config = Config::get('database');
+        $db_config = Config::load('database');
 		$username = $db_config['username'];
 		$password = $db_config['password'];
 		$dsn = $db_config['dsn'];

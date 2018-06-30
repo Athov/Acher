@@ -4,13 +4,13 @@ $routes = array();
 /*
  * Route example
  * 
- * $routes[METHOD][URI] = TARGET;
+ * $routes[METHOD][URI_ROUTE] = TARGET;
  * 
  * METHOD can be GET, POST, PUT, DELETE
  * 
- * In the URI you can use regular expressions 
+ * In the URI_ROUTE you can use regular expressions 
  * for example
- * 
+ * --------------- /URI_ROUTE/regxp
  * $routes['GET']['/word/(\d+)'] = function($word)
  * {
  *      echo 'Your world is ' . $word;

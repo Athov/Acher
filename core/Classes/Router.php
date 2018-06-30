@@ -139,7 +139,7 @@ class Router
 
                 // Get arguments from the URI
                 // example "target/2/3/4" from this the
-                // arguments are 2/3/4
+                // arguments will be array(2,3,4)
                 $route_explode = explode('/', $route);
                 $arguments = array_diff(array_replace($route_explode, explode('/', $uri)), $route_explode);
 
