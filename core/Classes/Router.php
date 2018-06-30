@@ -103,7 +103,7 @@ class Router
     /**
      * Adds a new route.
      *
-     * @param string $method The request method(POST,GET)
+     * @param string $method The request method
      * @param string $route The uri of the route
      * @param mixed $target A function() or a string
      * @return void
@@ -132,7 +132,7 @@ class Router
             {
 
                 // Match the route and URI
-                if(!preg_match("#^$route$#", $uri))
+                if( ! preg_match("#^$route$#", $uri))
                 {
                     continue ;
                 }
@@ -155,7 +155,7 @@ class Router
     /**
      * Get a response from the route
      *
-     * @return mixed A function or $this
+     * @return mixed
      * @throws Exception 
      */
     public function response()

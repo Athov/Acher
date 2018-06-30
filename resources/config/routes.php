@@ -1,6 +1,29 @@
 <?php
 $routes = array();
 
+/*
+ * Route example
+ * 
+ * $routes[METHOD][URI] = TARGET;
+ * 
+ * METHOD can be GET, POST, PUT, DELETE
+ * 
+ * In the URI you can use regular expressions 
+ * for example
+ * 
+ * $routes['GET']['/word/(\d+)'] = function($word)
+ * {
+ *      echo 'Your world is ' . $word;
+ * };
+ * 
+ * TARGET can be a class or a function 
+ * Above example uses anonymous function
+ * The class has to be formated like
+ * Namespace\Class@action
+ * @ is required
+ * 
+ */
+
 // GET
 $routes['GET']['/'] = 'App\\Controllers\\Home@index';
 $routes['GET']['/features'] = 'App\\Controllers\\Features@index';
