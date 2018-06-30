@@ -60,8 +60,6 @@ class Acher
         
         ErrorHandling::setEnvironment($config['environment']);
         
-        View::setLayout($config['default_layout']);
-        
     }
 
     public function setupErrorHandling()

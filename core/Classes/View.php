@@ -44,10 +44,10 @@ class View
     public function forge($view = null, $data = array())
     {
         // Check if layout file is not empty
-        if( ! empty(self::getLayout()))
+        if( ! empty($this->getLayout()))
         {
             // Set the layout file
-            $this->setFile(self::getLayout(), 'layout');
+            $this->setFile($this->getLayout(), 'layout');
         }
 
         // Set the view file
@@ -84,25 +84,23 @@ class View
     }
     
     /**
-     * Static
      * Set the layout file
      *
      * @param string $file_name The layout file name
      * located in the views folder
      * @return void
      */
-    public static function setLayout($file_name)
+    public function setLayout($file_name)
     {
         self::$layout = $file_name;
     }
     
     /**
-     * Static
      * Get the current layout file
      *
      * @return string
      */
-    public static function getLayout()
+    public function getLayout()
     {
         return self::$layout;
     }
