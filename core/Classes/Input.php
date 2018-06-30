@@ -62,7 +62,10 @@ class Input
 
     public function method()
     {
-        $method = strtoupper((isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'])) ? $_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'] : $_SERVER['REQUEST_METHOD']);
+        $method = strtoupper((isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'])) ? 
+                                    $_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'] : 
+                                    $_SERVER['REQUEST_METHOD']);
+
         $_method = $this->post('_method');
         return ($method == 'POST' && isset($_method)) ? strtoupper($_method) : $method;
     }
