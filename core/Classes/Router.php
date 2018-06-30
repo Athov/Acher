@@ -24,17 +24,6 @@ class Router
 	 * @var array Collection of routes
 	 */
     private $routes = array();
-	/**
-	 * @var array Patterns for matching
-     * the route with URI
-	 */
-    private $patterns = array(
-        ':any'  => '.*',
-        ':id'   => '[0-9]+',
-        ':num'   => '[0-9]+',
-        ':slug' => '[a-z\-]+',
-        ':name' => '[a-zA-Z]+',
-    );
 
     /**
      * Prevent the class from being instantiated.
@@ -81,6 +70,16 @@ class Router
         return $string;
     }
 
+    /**
+     * Set all routes.
+     *
+     * @return void
+     */
+    public function setRoutes($routes)
+    {
+        $this->routes = $routes;
+    }
+    
     /**
      * Get all routes.
      *
@@ -131,18 +130,6 @@ class Router
             // Loop all routes with the requested method
             foreach ($routes[$method] as $route => $target)
             {
-                // Check if a route has a parameter {:p}
-                if(preg_match('/{(:.+?)}/', $route))
-                {
-                    // Replace every {:p} with a pattern
-                    $route = preg_replace_callback('/{(:.+?)}/', function($key)
-                    {
-                        if(array_key_exists($key[1], $this->patterns))
-                        {
-                            return $this->patterns[$key[1]];
-                        }
-                    }, $route);
-                }
 
                 // Match the route and URI
                 if(!preg_match("#^$route$#", $uri))

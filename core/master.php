@@ -28,9 +28,6 @@ $acher->setupFolders();
 // Set the required configuration
 $acher->setConfiguration();
 
-// Include the routes file
-$acher->includeRoutes();
-
 // Setup the error handling 
 $acher->setupErrorHandling();
 

@@ -41,11 +41,6 @@ class Acher
         }
         return self::$instance;
     }
-
-    public function includeRoutes()
-    {
-        require ROOT . DS . 'app' . DS . 'routes.php';
-    }
     
     public function setupFolders()
     {
@@ -59,7 +54,6 @@ class Acher
         $config = Config::get('app');
         
         ErrorHandling::setEnvironment($config['environment']);
-        
     }
 
     public function setupErrorHandling()
@@ -71,6 +65,7 @@ class Acher
     public function processHttpRequest()
     {
         $router = Router::getInstance();
+        $router->setRoutes(Config::get('routes'));
         $router->response();
     }
 }
