@@ -39,9 +39,9 @@
             </div>
         </nav>
     </header>
-    <div class="container text-center">
+    <section class="container">
         <?php if (isset($error)): ?>
-            <div class="alert alert-danger alert-dismissible fade show text-left" role="alert">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <span><?php echo implode('</p><p>', $error); ?></span>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -49,7 +49,7 @@
             </div>
         <?php endif; ?>
         <?php if (isset($success)): ?>
-            <div class="alert alert-success alert-dismissible fade show text-left" role="alert">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <span><?php echo $success; ?></span>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -59,7 +59,7 @@
 
         <?php echo $content; // This is the view output ?>
 
-    </div>
+    </section>
     <footer class="container">
         <hr />
         <p>© Acher 2014-2018.</p>

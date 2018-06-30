@@ -1,5 +1,5 @@
 <div class="card border-secondary">
-    <h2 class="card-header">
+    <h2 class="card-header text-center">
         <?=$picture['title']; ?>
         <span class="mb-2 d-inline-block">
             <a href="/pictures/edit/<?=$picture['id']; ?>" class="btn btn-success btn-sm"><?=$title['button']['edit']; ?></a>

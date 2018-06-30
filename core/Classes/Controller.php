@@ -19,10 +19,12 @@ class Controller
 {
     protected $input = null;
     protected $view = null;
+    protected $layout = null;
 
     public function __construct()
     {
         $this->input = Input::getInstance();
         $this->view = new View();
+        $this->view->setLayout($this->layout);
     }
 }

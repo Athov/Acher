@@ -1,8 +1,8 @@
 <div class="card border-secondary">
-    <h2 class="card-header"><?=$title['home'];?></h2>
+    <h2 class="card-header text-center"><?=$title['home'];?></h2>
     <div class="card-body">
-        <h5 class="card-title"><?=$language['welcome']; ?></h5>
-        <h6 class="card-subtitle mb-2 text-muted"><?=$language['information']; ?></h6>
+        <h5 class="card-title text-center"><?=$language['welcome']; ?></h5>
+        <h6 class="card-subtitle mb-2 text-muted text-center"><?=$language['information']; ?></h6>
         <p class="text-muted mb-2 text-left"><?=$language['pictures_table']; ?></p>
         
 <div class="alert alert-secondary text-left">

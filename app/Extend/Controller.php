@@ -22,8 +22,6 @@ class Controller extends MainController
             $this->language->set($_SESSION['language']);
         }
 
-        $this->view->setLayout($this->layout);
-
         $this->view->setData(array(
             'title' => $this->language->load('titles'),
             'language_menu' => $this->language->load('menu')
