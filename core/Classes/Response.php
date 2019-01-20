@@ -16,4 +16,5 @@ namespace Core\Classes;
  */
 class Response
 {
+    
 }
