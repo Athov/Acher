@@ -37,14 +37,17 @@ class View
     );
 
     /**
-     * Create a new view
+     * Generate the view
      *
+     * @param string $view
+     * @param array $data
+     * @param boolean $use_layout 
      * @return void
      */
-    public function forge($view = null, $data = array())
+    public function forge($view = null, $data = array(), $use_layout = true)
     {
-        // Check if layout file is not empty
-        if( ! empty($this->getLayout()))
+        // Check if it should use the layout file and if layout file is not empty
+        if($use_layout === true && !empty($this->getLayout()))
         {
             // Set the layout file
             $this->setFile($this->getLayout(), 'layout');
