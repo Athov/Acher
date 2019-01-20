@@ -2,5 +2,5 @@
 
 return array(
     // valid "development","production"
-    'environment' => 'development',
+    'environment' => settings('environment', 'development'),
 );

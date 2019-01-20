@@ -41,6 +41,9 @@ class File
 
         if ( ! file_exists($file_path))
         {
+            if($file_name === 'settings') {
+                throw new \Exception('Please make sure you have renamed settings.example.php to settings.php and configure it properly.');
+            }
             throw new \Exception('This file "' . $file_path . '" does not exists.');
         }
 

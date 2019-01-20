@@ -85,9 +85,7 @@ class ErrorHandling
         $data['error'] = self::processMessages($error_message, $error_code);
         
         $view = new View();
-        $view->setData($data);
-        $view->setFile('message','view');
-        $view->render();
+        $view->forge('framework/message', $data, false);
         exit;
     }
     

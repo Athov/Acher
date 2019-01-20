@@ -44,6 +44,7 @@ class Acher
     
     public function setupFolders()
     {
+        File::load('functions', ROOT . DS . 'core' . DS . 'Helpers' . DS . 'functions.php', 'helpers');
         Config::setFolder(ROOT . DS . 'resources' . DS . 'config' . DS);
         Language::setFolder(ROOT . DS . 'resources' . DS . 'lang' . DS);
         View::setFolder(ROOT . DS . 'resources' . DS . 'views' . DS);
