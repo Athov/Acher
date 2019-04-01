@@ -16,5 +16,20 @@ namespace Core\Classes;
  */
 class Response
 {
+    public function __construct($code = 200)
+    {
+        $this->setCode(200);
+    }
+
+    public function setCode($code)
+    {
+        http_response_code($code);
+    }
+    
+    public function json($value, $options = 0, $depth = 512)
+    {
+        header('Content-Type: application/json');
+        echo json_encode($value, $options, $depth);
+    }
     
 }
